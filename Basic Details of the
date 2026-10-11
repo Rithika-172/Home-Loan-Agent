@@ -1,0 +1,39 @@
+Retell AI: Setting Agent Name and Company Name
+Oct 11, 2026 · @priya
+Option 1: Use dynamic variables
+Retell recognises {{agent_name}}-style placeholders as dynamic variables, so you keep the prompt as written and give Retell the values before each call.
+1.	Paste the full prompt into the agent's prompt box, leaving the {{ }} placeholders as they are.
+2.	Open the Test panel, usually at the bottom or right of the agent page. For a web call, look for where dynamic variable values are entered.
+3.	Fill in the values from the table below.
+4.	Start the web call.
+Variable	Value
+agent_name	Priya
+agent_gender	female
+company_name	Home Credit
+customer_name	your own name, e.g. Rahul Sharma
+language_to_speak	English
+additional_context_from_rag	the sample text from test_scenarios.md
+current_date	2026-10-11
+current_day	Sunday
+current_time	3:30 PM
+Retell may fill in some time variables automatically, such as {{current_time}}. Its menus and labels change between versions, so if you can't find the variable inputs, use Option 2.
+Option 2: Replace the placeholders with fixed text
+This is the safest route for the assignment: you only need working calls and a clean transcript.
+1.	Copy system_prompt.md into any text editor.
+2.	Use Find and Replace on each placeholder:
+o	{{agent_name}} → Priya
+o	{{agent_gender}} → female
+o	{{company_name}} → Home Credit
+o	{{customer_name}} → your name
+o	{{language_to_speak}} → English
+o	{{current_date}}, {{current_day}}, {{current_time}} → today's values
+o	{{additional_context_from_rag}} → the sample context paragraph
+3.	Delete the two lines that mention {{conversation_history}} and {{customer_utterance}}. Retell already sends the conversation to the model, and the agent may read the raw placeholder text aloud if you leave them.
+4.	Paste the edited prompt into Retell.
+Which version to submit
+Submit the original prompt with the placeholders, because the assignment says your prompt must account for those variables. Run your test calls with the filled-in version from Option 1 or Option 2.
+Greeting line
+Retell has a separate Begin Message field, which is the first thing the agent says. If you want the agent to speak first, put this there:
+Hello, this is {{agent_name}} from {{company_name}}. May I speak with {{customer_name}}?
+If you used Option 2, type the real names instead of the placeholders.
+
