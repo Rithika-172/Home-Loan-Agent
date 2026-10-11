@@ -1,0 +1,49 @@
+# Test Scenarios (speak these like a real customer)
+
+Make one call per scenario. Name each recording after the ID (e.g. `T02_agricultural.mp3`). Save audio + transcript for each.
+
+Always start by confirming identity ("Yes, speaking") unless the scenario says otherwise.
+
+| ID | Scenario | What you say | Expected result |
+|----|----------|--------------|-----------------|
+| T01 | Happy path | Residential flat, "my own", originals at home, 50 lakh, salaried, salary in bank, worth 1 crore, 10 years | All 7 asked, handoff to senior expert, call ends |
+| T02 | Agricultural | "It's agricultural land" at Q1 | Polite disqualification, call ends, no more questions |
+| T03 | Cash income | Answer others fine; "I'm self-employed, income mostly in cash" | Disqualified, call ends |
+| T04 | No originals | "I only have photocopies" | Disqualified, call ends |
+| T05 | Tenure too short | "2 years" | Disqualified |
+| T06 | Tenure too long | "20 years" | Disqualified |
+| T07 | Loan > limit, accept | "I need 90 lakhs" then "okay, 75 is fine" | Explains limit, asks to proceed, continues with 75L |
+| T08 | Loan > limit, decline | "I need 1 crore" then "no, then I'll skip" | Thanks, ends call |
+| T09 | Joint ownership | "Jointly owned with my brother" | Continues, NOT disqualified |
+| T10 | Existing loan | "I already have a loan on this property" | Transfer-specialist message, ends, no items 1-7 |
+| T11 | EMI reduction | "Actually I want to reduce my EMI" mid-call | Transfer message, ends |
+| T12 | Out-of-order | "Residential house worth about 1.2 crore, jointly owned with my wife" | Does NOT re-ask type, ownership, value; asks documents next |
+| T13 | Busy customer | "I'm in a meeting right now" | Asks callback time, confirms, ends |
+| T14 | Wrong person | "No, he's not here" | Apologises, no loan details shared, ends |
+| T15 | Interest rate diversion | "What interest rate will you charge?" mid-flow | No invented rate, says expert will share, returns to next item |
+| T16 | Contradiction | "Residential... actually no, it's agricultural" | Latest answer wins, disqualifies |
+| T17 | Multiple answers | "My own residential property, originals available, need 40 lakh, 10 years" | Captures 5 facts, asks occupation/income only |
+| T18 | Interruption | Agent asks a question; you cut in: "Wait, what documents do you need?" | Short answer or says expert will explain, then re-asks pending item |
+| T19 | Ambiguous docs | "I think the papers are somewhere at home" | Asks once to confirm originals |
+| T20 | Correction | "10 years... sorry, make it 12" | Uses 12, continues |
+| T21 | Skipped item after diversion | Dodge one question with a side question, then answer the rest | Agent circles back and asks the skipped item before handoff |
+| T22 | Hindi call | Set language_to_speak = Hindi and run T01 in Hindi | Entire call in Hindi, correct gender forms |
+
+Minimum to submit: T01, T02, T03, T04, T07, T10, T12, T13 (8 calls). Recommended: all 22, or at least 12.
+
+## Dynamic variable values to use on the platform
+
+- company_name: Home Credit
+- customer_name: Rahul Sharma (use your own name if the call is to your phone)
+- agent_name: Priya
+- agent_gender: female
+- current_date / current_day / current_time: let the platform fill these in, or type today's values
+- language_to_speak: English (Hindi for T22)
+- additional_context_from_rag: see below
+- conversation_history / customer_utterance: filled by the platform at runtime (do not hardcode)
+
+Sample additional_context_from_rag (paste into a test field):
+
+```
+Home Credit LAP: pre-approved Loan Against Property up to Rs. 75,00,000 for existing customers. Tenure 3 to 15 years. Documents needed later: identity proof, address proof, income proof, original property documents. Exact interest rate, fees and approval are shared by the senior loan expert.
+```
